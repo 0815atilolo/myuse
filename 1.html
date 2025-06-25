@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>阿团的恋爱日记</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            love: {
+              primary: '#FF4986',
+              secondary: '#FFD6E0',
+              accent: '#FF85A1',
+              light: '#FFF0F5',
+              dark: '#E6005C'
+            }
+          },
+          fontFamily: {
+            romantic: ['"Dancing Script"', 'cursive'],
+            main: ['"Poppins"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .bg-gradient-love {
+        background: linear-gradient(135deg, #FF4986 0%, #FFD6E0 100%);
+      }
+      .heart-beat {
+        animation: heartBeat 1.5s ease-in-out infinite;
+      }
+      .photo-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .photo-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+      .memory-card {
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .memory-card:hover {
+        transform: rotate(2deg) scale(1.03);
+      }
+    }
+
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.2); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.2); }
+      70% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="font-main bg-love-light text-gray-800 min-h-screen">
+  <!-- 导航栏 -->
+  <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 transition-all duration-300 shadow-sm" id="navbar">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="text-love-primary font-romantic text-2xl font-bold">阿团的恋爱日记</a>
+      <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-gray-700 hover:text-love-primary transition-colors">首页</a>
+        <a href="#memory" class="text-gray-700 hover:text-love-primary transition-colors">相遇</a>
+        <a href="#gallery" class="text-gray-700 hover:text-love-primary transition-colors">照片</a>
+        <a href="#moment" class="text-gray-700 hover:text-love-primary transition-colors">重要时刻</a>
+      </div>
+      <button class="md:hidden text-love-primary text-xl" id="menuToggle">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 移动端菜单 -->
+  <div class="md:hidden bg-white absolute w-full left-0 top-full shadow-md transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none" id="mobileMenu">
+    <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+      <a href="#home" class="text-gray-700 hover:text-love-primary transition-colors py-2">首页</a>
+      <a href="#memory" class="text-gray-700 hover:text-love-primary transition-colors py-2">相遇</a>
+      <a href="#gallery" class="text-gray-700 hover:text-love-primary transition-colors py-2">照片</a>
+      <a href="#moment" class="text-gray-700 hover:text-love-primary transition-colors py-2">重要时刻</a>
+    </div>
+  </div>
+
+  <!-- 英雄区域 -->
+  <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 relative overflow-hidden">
+    <!-- 背景图片 - 替换为你们的照片 -->
+    <div class="absolute inset-0 bg-[url('C:\Users\31149\Pictures\Camera Roll\OIP-C.jpg')] bg-cover bg-center opacity-20"></div>
+    <!-- 渐变遮罩层 -->
+    <div class="absolute inset-0 bg-gradient-to-b from-love-primary/80 to-love-secondary/80"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-romantic font-bold text-white text-shadow mb-6">
+          欢迎来到我们的世界
+        </h1>
+        <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mb-8">
+          在一起的时间
+        </p>
+        <div class="flex justify-center space-x-4 mb-12">
+          <span class="inline-block h-2 w-2 bg-white rounded-full"></span>
+          <span class="inline-block h-2 w-2 bg-white rounded-full"></span>
+          <span class="inline-block h-2 w-2 bg-white rounded-full"></span>
+        </div>
+        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 md:p-8 shadow-lg">
+          <div class="countdown-timer flex justify-center gap-4 md:gap-8">
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center w-16 md:w-24">
+              <div class="text-white text-xl md:text-2xl font-bold" id="days">00</div>
+              <div class="text-white/70 text-xs md:text-sm">天</div>
+            </div>
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center w-16 md:w-24">
+              <div class="text-white text-xl md:text-2xl font-bold" id="hours">00</div>
+              <div class="text-white/70 text-xs md:text-sm">时</div>
+            </div>
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center w-16 md:w-24">
+              <div class="text-white text-xl md:text-2xl font-bold" id="minutes">00</div>
+              <div class="text-white/70 text-xs md:text-sm">分</div>
+            </div>
+            <div class="bg-white/30 backdrop-blur-sm rounded-lg p-3 md:p-4 text-center w-16 md:w-24">
+              <div class="text-white text-xl md:text-2xl font-bold" id="seconds">00</div>
+              <div class="text-white/70 text-xs md:text-sm">秒</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] rotate-180">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-[60px] md:h-[100px]">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="#FFF0F5"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 相识故事 -->
+  <section id="memory" class="py-16 md:py-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-romantic font-bold text-love-primary mb-4">我们的相遇</h2>
+        <div class="inline-block h-1 w-24 bg-love-accent rounded-full mb-6"></div>
+        <p class="max-w-2xl mx-auto text-gray-600">相遇的甜蜜</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 相遇照片1 -->
+        <div class="memory-card bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="C:\Users\31149\Pictures\Camera Roll\406d558fcb7167f54065f292e6da2ca.jpg" alt="相遇地点照片1" class="absolute inset-0 w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-romantic font-bold text-love-primary mb-3">初见的地方</h3>
+            <p class="text-gray-700">
+              这里是我们第一次相遇的地方，那天你为我弹琴，我静静聆听
+            </p>
+          </div>
+        </div>
+
+        <!-- 相遇照片2 -->
+        <div class="memory-card bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="C:\Users\31149\Pictures\Camera Roll\c84eadd96e693e27e1900f7ec67ae91.jpg" alt="相遇地点照片2" class="absolute inset-0 w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-romantic font-bold text-love-primary mb-3">心动的瞬间</h3>
+            <p class="text-gray-700">
+              我们一起玩原神，我把你“骗”到爱心岛拿宝箱
+            </p>
+          </div>
+        </div>
+
+        <!-- 相遇照片3 -->
+        <div class="memory-card bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="relative h-64">
+            <img src="C:\Users\31149\Pictures\Camera Roll\501d66089c941192bfaa506f188ceae.jpg" alt="相遇地点照片3" class="absolute inset-0 w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-romantic font-bold text-love-primary mb-3">故事的开始</h3>
+            <p class="text-gray-700">
+              在这里，你为我讲了小王子的故事，我们的故事也拉开了序幕...
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <h3 class="text-2xl font-romantic font-bold text-love-primary mb-6 text-center">我们的故事</h3>
+        <p class="text-gray-700 mb-4 leading-relaxed">
+          &nbsp;&nbsp;&nbsp;&nbsp;你带我去看小王子的世界，那是你最后一次的机会，你说愿意带我去因为我是重要的人，小王子也有一朵太空玫瑰陪伴了他很久，有一次他遇到了很多的玫瑰，
+          小王子的玫瑰在一堆玫瑰里，并不特别，但是小王子唯独只爱自己手中那朵，并不是那朵玫瑰有朵特别，而是陪伴赋予了其意义，而我想你就是我心中的那朵
+          太空玫瑰！！！
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          &nbsp;&nbsp;&nbsp;&nbsp;一路上我们也经历了很多的困难与挑战，但后来我们俩还是坚持自己的心，希望我们可以共同努力，最后一起走向幸福。
+        </p>
+        <div class="mt-8 flex items-center justify-center">
+          <div class="text-love-primary text-3xl">
+            <i class="fa fa-heart heart-beat"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 照片墙 -->
+  <section id="gallery" class="py-16 md:py-24 bg-love-secondary/30">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-romantic font-bold text-love-primary mb-4">甜蜜瞬间</h2>
+        <div class="inline-block h-1 w-24 bg-love-accent rounded-full mb-6"></div>
+        <p class="max-w-2xl mx-auto text-gray-600">我们的照片</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- 照片卡片 1 -->
+        <div class="photo-hover bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="h-64 overflow-hidden">
+            <img src="C:\Users\31149\Pictures\Camera Roll\00bd7057c74dc6a2577048b8faf8526.jpg" alt="照片描述" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">照片标题</h3>
+            <p class="text-gray-600 text-sm mb-4">我们一起拍照，留下的回忆</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-500">2024.8.2</span>
+              <div class="text-love-primary">
+                <i class="fa fa-heart"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 照片卡片 2 -->
+        <div class="photo-hover bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="h-64 overflow-hidden">
+            <img src="C:\Users\31149\Pictures\Camera Roll\d634b19d25e47f8926a0a02a1773145.jpg" alt="照片描述" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">照片标题</h3>
+            <p class="text-gray-600 text-sm mb-4">我们一起吃饭，这算约会吗嘿嘿</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-500">2024.8.2</span>
+              <div class="text-love-primary">
+                <i class="fa fa-heart"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 照片卡片 3 -->
+        <div class="photo-hover bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="h-64 overflow-hidden">
+            <img src="C:\Users\31149\Pictures\Camera Roll\b27cbda8f5749eb1b42df1478d48c69.jpg" alt="照片描述" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">照片标题</h3>
+            <p class="text-gray-600 text-sm mb-4">送你的花，你一直想要我以一束花来正式表白</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-500">2024.7.28</span>
+              <div class="text-love-primary">
+                <i class="fa fa-heart"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 重要时刻倒计时 -->
+  <section id="moment" class="py-16 md:py-24">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-romantic font-bold text-love-primary mb-4">重要时刻</h2>
+        <div class="inline-block h-1 w-24 bg-love-accent rounded-full mb-6"></div>
+        <p class="max-w-2xl mx-auto text-gray-600"></p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="w-full md:w-1/3 mb-8 md:mb-0">
+            <div class="relative w-48 h-48 mx-auto">
+              <div class="absolute inset-0 bg-love-primary/10 rounded-full flex items-center justify-center">
+                <div class="w-40 h-40 bg-love-primary/20 rounded-full flex items-center justify-center">
+                  <div class="w-32 h-32 bg-love-primary/30 rounded-full flex items-center justify-center">
+                    <div class="text-love-primary text-4xl">
+                      <i class="fa fa-heart heart-beat"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-2/3 text-center md:text-left">
+            <h3 class="text-2xl font-romantic font-bold text-love-primary mb-4">宝宝的生日</h3>
+            <p class="text-gray-700 mb-6">
+              距离 <span class="font-bold text-love-primary">生日</span> 还有 <span id="special-days" class="font-bold text-love-primary">0</span> 天。
+            </p>
+            <div class="inline-flex bg-love-primary/10 rounded-full px-6 py-3">
+              <div class="text-love-primary mr-2">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <span class="font-semibold">农历2007年08月14日</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-love-primary text-white py-12">
+    <div class="container mx-auto px-4 text-center">
+      <div class="mb-6">
+        <h2 class="text-2xl font-romantic font-bold mb-4">我们的故事</h2>
+        <p class="text-white/80">用爱编织的回忆</p>
+      </div>
+      <div class="flex justify-center space-x-4 mb-8">
+        <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+          <i class="fa fa-heart"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+          <i class="fa fa-camera"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+          <i class="fa fa-gift"></i>
+        </a>
+      </div>
+      <p class="text-white/60 text-sm">
+        用❤️制作 | 永远爱你
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // 导航菜单切换
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenu.classList.contains('opacity-0')) {
+        mobileMenu.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+        mobileMenu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      } else {
+        mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+        mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    });
+
+    // 滚动时导航栏样式变化
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3', 'shadow-sm');
+      } else {
+        navbar.classList.add('py-3', 'shadow-sm');
+        navbar.classList.remove('py-2', 'shadow-md');
+      }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动菜单
+          const mobileMenu = document.getElementById('mobileMenu');
+          if (!mobileMenu.classList.contains('opacity-0')) {
+            mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+            mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          }
+        }
+      });
+    });
+
+    // 在一起时间倒计时
+    function updateCountdown() {
+      // 设置在一起的日期（请替换为实际日期）
+      const togetherDate = new Date('2022-12-28');
+      const now = new Date();
+      const difference = now - togetherDate;
+
+      // 计算天、时、分、秒
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      // 更新DOM
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // 重要日期倒计时
+    function updateSpecialCountdown() {
+      // 设置重要日期（请替换为实际日期）
+      const specialDate = new Date('2025-10-5');
+      const now = new Date();
+      const difference = specialDate - now;
+
+      // 计算天数
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+      // 更新DOM
+      document.getElementById('special-days').textContent = days.toString();
+    }
+
+    // 初始化倒计时
+    updateCountdown();
+    updateSpecialCountdown();
+    
+    // 每秒更新一次
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
